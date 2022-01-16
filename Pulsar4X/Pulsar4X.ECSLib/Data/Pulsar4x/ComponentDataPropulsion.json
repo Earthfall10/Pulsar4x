@@ -5,8 +5,8 @@
       {
         "Key": "b12f50f6-ac68-4a49-b147-281a9bb34b9b",
         "Value": {
-          "Name": "RP1 Rocket Engine",
-          "DescriptionFormula": "'A Newtonian Thruster'",
+          "Name": "Kerolox Rocket Engine",
+          "DescriptionFormula": "'A chemical thruster which burns liquid kerosene and liquid oxygen. Dense fuel and high thrust but low specific impulse.'",
           "ID": "b12f50f6-ac68-4a49-b147-281a9bb34b9b",
           "MassFormula": "Ability('Mass')",
           "VolumeFormula": "Ability('Mass') / 150",
@@ -38,25 +38,49 @@
               "AttributeFormula": "500"
             },
             {
+              "Name": "Thrust Modifier",
+              "Units": "n/a",
+              "DescriptionFormula": "'Vary the thrust of the engine'",
+              "GuiHint": "GuiSelectionMaxMin",
+              "MaxFormula": "TechData('b8ef73c7-2ef0-445e-8461-1e0508958a0e')", 
+              "MinFormula": "1",
+              "StepFormula": "0.05",
+              "AttributeFormula": "1"
+            },
+            {
               "Name": "Exhaust Velocity",
               "Units": "m/s",
               "DescriptionFormula": "'Specific Impulse in m/s, can be increased by research'",
               "GuiHint": "GuiTextDisplay",
-              "AttributeFormula": "3000 * TechData('fa2736ed-d0bf-44a5-bc00-d25d3adaa23c')"
+              "AttributeFormula": "(2500 * TechData('fa2736ed-d0bf-44a5-bc00-d25d3adaa23c'))/Ability('Thrust Modifier') "
             },
             {
-              "Name": "Fuel Consumption",
-              "Units": "kg/s",
-              "DescriptionFormula": "'Fuel Consumption per second'",
+              "Name": "Thrust Power",
+              "Units": "W",
+              "DescriptionFormula": "'Power output of engine'",
               "GuiHint": "GuiTextDisplay",
-              "AttributeFormula": "Ability('Mass') * 0.3 * TechData('8557acb9-c764-44e7-8ee4-db2c2cebf0bc')"
+              "AttributeFormula": "Ability('Mass') * 1000000 * TechData('8557acb9-c764-44e7-8ee4-db2c2cebf0bc')"
             },
             {
               "Name": "Thrust",
               "Units": "N",
               "DescriptionFormula": "'The maximum thrust output of this engine'",
               "GuiHint": "GuiTextDisplay",
-              "AttributeFormula": "Ability('Exhaust Velocity') * Ability('Fuel Consumption')"
+              "AttributeFormula": "((2 * Ability('Thrust Power')) / Ability('Exhaust Velocity')) * Ability ('Efficiency') "
+            },
+            {              
+              "Name": "Fuel Consumption",
+              "Units": "kg/s",
+              "DescriptionFormula": "'Kilograms of Kerolox used per second'",
+              "GuiHint": "GuiTextDisplay",
+              "AttributeFormula": "(2 * Ability('Thrust Power')) / (Ability('Exhaust Velocity') * Ability('Exhaust Velocity') )"
+            },
+            {              
+              "Name": "Efficiency",
+              "Units": "n/a",
+              "DescriptionFormula": "'Thrust is reduced due to nozzel and combustion losses. Improves with engine size.'",
+              "GuiHint": "GuiTextDisplay",
+              "AttributeFormula": "TechData('8557acb9-c764-44e7-8ee4-db2c2cebf0bd') - (0.2 * Exp( -0.0005 * Ability('Mass') ) )"
             },
             {
               "Name": "DataBlob",
@@ -65,7 +89,6 @@
               "AttributeFormula": "AtbConstrArgs(Ability('Exhaust Velocity'), GuidString('8a4a3569-df2e-4090-9752-50ff137cef6a'), Ability('Fuel Consumption'))",
               "AttributeType": "Pulsar4X.ECSLib.NewtonionThrustAtb"
             },
-
             {
               "Name": "Sensor Signature",
               "Units": "unknown",
@@ -81,7 +104,7 @@
         "Key": "B03FE82F-EE70-4A9A-AC61-5A7D44A3364E",
         "Value": {
           "Name": "Methalox Rocket Engine",
-          "DescriptionFormula": "'A Newtonian Thruster'",
+          "DescriptionFormula": "'A chemical thruster which burns liquid methane and liquid oxygen. Decently dense fuel, moderate thrust, and decent specific impulse.'",
           "ID": "B03FE82F-EE70-4A9A-AC61-5A7D44A3364E",
           "MassFormula": "Ability('Mass')",
           "VolumeFormula": "Ability('Mass') / 285",
@@ -156,7 +179,7 @@
         "Key": "A0F3E5BB-0AA6-41D0-9873-5A7AC9080B69",
         "Value": {
           "Name": "Hydrolox Rocket Engine",
-          "DescriptionFormula": "'Hydogen engines tend to have a higher fuel efficency, but the fuel is less dense requring larger tanks'",
+          "DescriptionFormula": "'A chemical thruster which burns liquid hydrogen and liquid oxygen. Low density fuel, low thrust, but high specific impulse.'",
           "ID": "A0F3E5BB-0AA6-41D0-9873-5A7AC9080B69",
           "MassFormula": "Ability('Mass')",
           "VolumeFormula": "Ability('Mass') / 130",
