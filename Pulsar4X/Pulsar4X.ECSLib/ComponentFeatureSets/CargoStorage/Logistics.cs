@@ -48,6 +48,7 @@ namespace Pulsar4X.ECSLib
         public Guid From; 
         public List<(ICargoable item, int count)>  ItemsToShip =  new List<(ICargoable item, int count)>();
         public Dictionary<Guid, double>  TradeSpace =  new Dictionary<Guid, double>();
+        public double MaxTradeMass = 1;
         public Guid To; 
 
         public States CurrentState = States.Waiting;
@@ -315,9 +316,13 @@ namespace Pulsar4X.ECSLib
                         if(tradingItems.Key.CargoTypeID == cargoSpace.Key)
                         {
                             //we abs this since if it's demand, it'll be negative. we want to find how much to carry.
+                            var vpu = tradingItems.Key.VolumePerUnit;
+                            var mpu = tradingItems.Key.MassPerUnit;
+                            var tradeCount = tradingItems.Value.count;
+                            var shipCount = Math.Min(mpu * shiperdb.MaxTradeMass, Math.Pow(possibleTradeVolume,3) / vpu);
+                            long numCanCarry = (long)Math.Min(Math.Abs(tradeCount), shipCount);
                             
-                            var volCanCarry = Math.Min(possibleTradeVolume, Math.Abs(tradingItems.Value.count * tradingItems.Key.VolumePerUnit));
-                            long numCanCarry =  (long)(volCanCarry / tradingItems.Key.VolumePerUnit);
+                            
                             var ct = new CargoTask();
                             
                             ct.item = tradingItems.Key;
@@ -361,7 +366,7 @@ namespace Pulsar4X.ECSLib
                     pcombo.Destination = destinEntity;
                     pcombo.item = stask.item;
                     pcombo.NumberOfItems = Math.Min(stask.NumberOfItems, dtask.NumberOfItems);
-
+                    
                     DateTime arriveSourceTime = currentDateTime + TimeSpan.FromSeconds(stask.timeInSeconds);
                     TimeSpan loadTime = TimeSpan.FromSeconds(3600); //TODO: calculate this properly
                     DateTime DepartSourceTime = arriveSourceTime + loadTime;
@@ -860,7 +865,7 @@ namespace Pulsar4X.ECSLib
         Entity _factionEntity;
 
         private Dictionary<ICargoable,(int count, int demandSupplyWeight)> _baseChanges;
-        private Dictionary<Guid, double> _shipChanges;
+        private Changes _shipChanges;
 
         internal override bool IsValidCommand(Game game)
         {
@@ -900,7 +905,13 @@ namespace Pulsar4X.ECSLib
             StaticRefLib.Game.OrderHandler.HandleOrder(cmd);
         }
         
-        public static void CreateCommand_SetShipTypeAmounts(Entity entity, Dictionary<Guid, double> changes )
+        public struct Changes
+        {
+            public Dictionary<Guid, double> VolumeAmounts = new Dictionary<Guid, double>();
+            public int MaxMass = 0;
+        }
+        
+        public static void CreateCommand_SetShipTypeAmounts(Entity entity, Changes changes )
         {
 
             SetLogisticsOrder cmd = new SetLogisticsOrder();
@@ -963,11 +974,12 @@ namespace Pulsar4X.ECSLib
                     case OrderTypes.SetShipTypeAmounts:
                     {
                         var db = EntityCommanding.GetDataBlob<LogiShipperDB>();
-                        foreach (var item in _shipChanges)
+                        foreach (var item in _shipChanges.VolumeAmounts)
                         {
                             db.TradeSpace[item.Key] = item.Value;
                         }
-                        //db.TradeSpace = 
+
+                        db.MaxTradeMass = _shipChanges.MaxMass;
                         
                         break;
                     }
