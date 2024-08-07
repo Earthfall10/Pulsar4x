@@ -110,8 +110,8 @@
       {
         "Key": "b8ef73c7-2ef0-445e-8461-1e0508958a0e",
         "Value": {
-          "Name": "Maximum Engine Thrust Modifier",
-          "Description": "Increase engine thrust at the cost of exhaust velocity",
+          "Name": "Maximum Engine Power Modifier",
+          "Description": "",
           "ID": "b8ef73c7-2ef0-445e-8461-1e0508958a0e",
           "MaxLevel": 7,
           "DataFormula": "1 + ([Level] * 1.5)",
@@ -125,10 +125,10 @@
       {
         "Key": "08fa4c4b-0ddb-4b3a-9190-724d715694de",
         "Value": {
-          "Name": "Minimum Engine Thrust Modifier",
-          "Description": "Decrease engine thrust to improve exhaust velocity",
+          "Name": "Minimum Engine Power Modifier",
+          "Description": "",
           "ID": "08fa4c4b-0ddb-4b3a-9190-724d715694de",
-          "MaxLevel": 4,
+          "MaxLevel": 7,
           "DataFormula": "0.9 - [Level] * 0.1",
           "Category": "PowerAndPropulsion",
           "Requirements": {
@@ -215,7 +215,7 @@
       {
         "Key": "35608fe6-0d65-4a5f-b452-78a3e5e6ce2c",
         "Value": {
-          "Name": "Chemical Engine Technology",
+          "Name": "Conventional Engine Technology",
           "Description": "",
           "ID": "35608fe6-0d65-4a5f-b452-78a3e5e6ce2c",
           "MaxLevel": 1,
@@ -228,69 +228,9 @@
         }
       },
       {
-        "Key": "f3f10e56-9345-40cc-af42-342e7240355d",
-        "Value": {
-          "Name": "Electrothermal Engine Technology",
-          "Description": "",
-          "ID": "f3f10e56-9345-40cc-af42-342e7240355d",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 1000"
-        }
-      },
-      {
-        "Key": "09376748-1adf-4739-ab8c-872f12ac8329",
-        "Value": {
-          "Name": "Ion Drive Technology",
-          "Description": "",
-          "ID": "09376748-1adf-4739-ab8c-872f12ac8329",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 2500"
-        }
-      },
-      {
-        "Key": "bb383b12-afac-4775-bbcc-bd6e2b5e6d4d",
-        "Value": {
-          "Name": "Plasma Drive Technology",
-          "Description": "",
-          "ID": "bb383b12-afac-4775-bbcc-bd6e2b5e6d4d",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 5000"
-        }
-      },
-      {
-        "Key": "73742a4f-691c-4fde-9703-70774dc29caf",
-        "Value": {
-          "Name": "Pebble Bed Reactor Technology",
-          "Description": "",
-          "ID": "73742a4f-691c-4fde-9703-70774dc29caf",
-          "MaxLevel": 1,
-          "DataFormula": "5",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 1000"
-        }
-      },
-      {
         "Key": "c827d369-3f16-43ef-b112-7d5bcafb74c7",
         "Value": {
-          "Name": "Solid Core Nuclear Thermal Engine Technology",
+          "Name": "Nuclear Thermal Engine Technology",
           "Description": "",
           "ID": "c827d369-3f16-43ef-b112-7d5bcafb74c7",
           "MaxLevel": 1,
@@ -299,7 +239,7 @@
           "Requirements": {
             "List": [
               {
-                "Key": "73742a4f-691c-4fde-9703-70774dc29caf",
+                "Key": "35608fe6-0d65-4a5f-b452-78a3e5e6ce2c",
                 "Value": 1
               }
             ]
@@ -310,7 +250,7 @@
       {
         "Key": "db6818f3-99e9-46c1-b903-f3af978c38b2",
         "Value": {
-          "Name": "Liquid Core Nuclear Thermal Technology",
+          "Name": "Nuclear Pulse Engine Technology",
           "Description": "",
           "ID": "db6818f3-99e9-46c1-b903-f3af978c38b2",
           "MaxLevel": 1,
@@ -328,13 +268,13 @@
         }
       },
       {
-        "Key": "68f77604-85e7-4d85-b072-f05acc1d5d2d",
+        "Key": "f3f10e56-9345-40cc-af42-342e7240355d",
         "Value": {
-          "Name": "Gas Core Nuclear Thermal Technology",
+          "Name": "Ion Drive Technology",
           "Description": "",
-          "ID": "68f77604-85e7-4d85-b072-f05acc1d5d2d",
+          "ID": "f3f10e56-9345-40cc-af42-342e7240355d",
           "MaxLevel": 1,
-          "DataFormula": "5",
+          "DataFormula": "1000",
           "Category": "PowerAndPropulsion",
           "Requirements": {
             "List": [
@@ -345,194 +285,6 @@
             ]
           },
           "CostFormula": "(1 + [Level]) * 10000"
-        }
-      },
-      {
-        "Key": "ab501256-98b9-452f-9fd6-868b54938fa1",
-        "Value": {
-          "Name": "Inertial Confinement Fusion Reactor Technology",
-          "Description": "",
-          "ID": "ab501256-98b9-452f-9fd6-868b54938fa1",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 25000"
-        }
-      },
-      {
-        "Key": "44e26c08-67f2-4138-8077-558c317a3a64",
-        "Value": {
-          "Name": "Inertial Confinement Fusion Drive Technology",
-          "Description": "",
-          "ID": "44e26c08-67f2-4138-8077-558c317a3a64",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": [
-              {
-                "Key": "ab501256-98b9-452f-9fd6-868b54938fa1",
-                "Value": 1
-              }
-            ]
-          },
-          "CostFormula": "(1 + [Level]) * 50000"
-        }
-      },
-      {
-        "Key": "35de9a92-67b0-4287-9cb8-be28652ac7d3",
-        "Value": {
-          "Name": "Magnetic Confinement Fusion Reactor Technology",
-          "Description": "",
-          "ID": "35de9a92-67b0-4287-9cb8-be28652ac7d3",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 50000"
-        }
-      },
-      {
-        "Key": "050a96f2-d5dc-4c82-9b7c-2df66cf09399",
-        "Value": {
-          "Name": "Magnetic Confinement Fusion Drive Technology",
-          "Description": "",
-          "ID": "050a96f2-d5dc-4c82-9b7c-2df66cf09399",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": [
-              {
-                "Key": "35de9a92-67b0-4287-9cb8-be28652ac7d3",
-                "Value": 1
-              }
-            ]
-          },
-          "CostFormula": "(1 + [Level]) * 100000"
-        }
-      },
-      {
-        "Key": "f724afc4-ddc2-4804-ba0a-b865575c6184",
-        "Value": {
-          "Name": "Magneto-inertial Fusion Drive Technology",
-          "Description": "",
-          "ID": "f724afc4-ddc2-4804-ba0a-b865575c6184",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": [
-              {
-                "Key": "050a96f2-d5dc-4c82-9b7c-2df66cf09399",
-                "Value": 1
-              },
-              {                
-                "Key": "44e26c08-67f2-4138-8077-558c317a3a64",
-                "Value": 1
-              }
-            ]
-          },
-          "CostFormula": "(1 + [Level]) * 250000"
-        }
-      },
-      {
-        "Key": "5180aeca-c2d0-443d-b3c5-a40a1bbb4170",
-        "Value": {
-          "Name": "Antimater Production Technology",
-          "Description": "",
-          "ID": "5180aeca-c2d0-443d-b3c5-a40a1bbb4170",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 500000"
-        }
-      },
-      {
-        "Key": "25c12282-4f2c-442e-adca-bbd4b717889d",
-        "Value": {
-          "Name": "Antimater Reactor Technology",
-          "Description": "",
-          "ID": "25c12282-4f2c-442e-adca-bbd4b717889d",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": []
-          },
-          "CostFormula": "(1 + [Level]) * 500000"
-        }
-      },
-      {
-        "Key": "549ff0f0-ccc8-488f-918b-211362b7aee9",
-        "Value": {
-          "Name": "Antimatter Catalyzed Fusion Drive Technology",
-          "Description": "",
-          "ID": "549ff0f0-ccc8-488f-918b-211362b7aee9",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": [
-              {
-                "Key": "f724afc4-ddc2-4804-ba0a-b865575c6184",
-                "Value": 1
-              },
-              {                
-                "Key": "25c12282-4f2c-442e-adca-bbd4b717889d",
-                "Value": 1
-              }
-            ]
-          },
-          "CostFormula": "(1 + [Level]) * 1000000"
-        }
-      },
-      {
-        "Key": "209b23f1-9086-4761-8686-b05f0df2de3d",
-        "Value": {
-          "Name": "Plasma Core Antimater Drive Technology",
-          "Description": "",
-          "ID": "209b23f1-9086-4761-8686-b05f0df2de3d",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": [
-              {
-                "Key": "549ff0f0-ccc8-488f-918b-211362b7aee9",
-                "Value": 1
-              }
-            ]
-          },
-          "CostFormula": "(1 + [Level]) * 2500000"
-        }
-      },
-      {
-        "Key": "b2c28f35-1b3d-46f1-a239-10545cd221fc",
-        "Value": {
-          "Name": "Beam Core Antimater Drive Technology",
-          "Description": "",
-          "ID": "b2c28f35-1b3d-46f1-a239-10545cd221fc",
-          "MaxLevel": 1,
-          "DataFormula": "1000",
-          "Category": "PowerAndPropulsion",
-          "Requirements": {
-            "List": [
-              {
-                "Key": "209b23f1-9086-4761-8686-b05f0df2de3d",
-                "Value": 1
-              }
-            ]
-          },
-          "CostFormula": "(1 + [Level]) * 5000000"
         }
       },
       {
