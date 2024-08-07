@@ -10,10 +10,12 @@ namespace Pulsar4X.Orbital
         /// <summary>
         /// In meters kg^3
         /// </summary>
+        /// <remarks>μ</remarks>
         public double StandardGravParameter;
         
         /// <summary>
         /// SemiMajorAxis in Metres
+        /// Will be negative for Hyperbola!!!
         /// </summary>
         /// <remarks>a</remarks>
         public double SemiMajorAxis;
@@ -74,9 +76,10 @@ namespace Pulsar4X.Orbital
 
         /// <summary>
         /// Orbital Period in Seconds
+        /// Infinate for Hyperbolic!
         /// </summary>
         /// <remarks>P</remarks>
-        public double OrbitalPeriod;
+        public double Period;
         
         /// <summary>
         /// Mean Anomaly At Epoch
@@ -87,21 +90,26 @@ namespace Pulsar4X.Orbital
         /// <summary>
         /// True Anomaly At Epoch
         /// </summary>
-        /// <remarks>ν or f or  θ</remarks>
+        /// <remarks>ν or f or θ</remarks>
         public double TrueAnomalyAtEpoch;
         
         /// <summary>
-        /// Eccentric Anomaly
+        /// Eccentric Anomaly for Ellipse
+        /// Hyperbolic Anomaly for Hyperbolic
         /// </summary>
-        /// <remarks>E</remarks>
-        public double EccentricAnomalyAtEpoch;
+        /// <remarks>E0 (ellipse) or F0 (hyperbolic)</remarks>
+        public double AnomalyAtEpoch;
 
         /// <summary>
         /// Epoch
         /// </summary>
         public DateTime Epoch;
-    }
 
+	}
+
+    /// <summary>
+    /// State Vectors are orbital parent ralitive.
+    /// </summary>
     public struct StateVectors
     {
         /// <summary>
@@ -110,8 +118,16 @@ namespace Pulsar4X.Orbital
         public Vector3 Position;
 
         /// <summary>
-        /// Velocity Vector
+        /// Velocity Vector Ralitive to SOI parent, but X is global East, Y global North Z global up. 
         /// </summary>
         public Vector3 Velocity;
+        
+        /// <summary>
+        /// Velocity as a prograde ie (0, velocity.length, 0) vector
+        /// </summary>
+        public Vector3 ProgradeVector
+        {
+            get { return new Vector3(0, Velocity.Length(), 0); }
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Authors>Pulsar4XDevs</Authors>
     <Company>Pulsar4X</Company>
     <Product>Pulsar4x.Tests</Product>
@@ -9,6 +9,7 @@
     <FileUpgradeFlags>40</FileUpgradeFlags>
     <UpgradeBackupLocation>C:\Users\matia\source\repos\Pulsar4x\Pulsar4X\Backup\Pulsar4X.Tests\</UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Linux_x64' ">
     <IntermediateOutputPath>obj\Linux_x64\Debug</IntermediateOutputPath>
@@ -79,16 +80,16 @@
     </NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CoreCLR-NCalc" Version="2.2.92" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0-preview-20200519-01" />
-    <PackageReference Include="NUnit" Version="3.10.1" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.4.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="CoreCLR-NCalc" Version="2.2.113" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pulsar4X.ECSLib\Pulsar4X.ECSLib.csproj" />
+    <ProjectReference Include="..\GameEngine\GameEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="mono_crash.197419f3c8.0.json" />
@@ -110,4 +111,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <Target Name="CopyJsonData" AfterTargets="Build">
+    <ItemGroup>
+      <JsonDataFiles Include="..\GameEngine\Data\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(JsonDataFiles)" DestinationFolder="$(OutputPath)\Data\%(RecursiveDir)" />
+  </Target>
 </Project>

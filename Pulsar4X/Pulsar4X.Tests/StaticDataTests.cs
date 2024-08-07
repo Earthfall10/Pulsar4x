@@ -1,10 +1,13 @@
-﻿using NUnit.Framework;
-using Pulsar4X.ECSLib;
+﻿/* TODO: Needs updated for new Static Data system, or deleted.
+
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using Pulsar4X.DataStructures;
+using Pulsar4X.Engine;
+using Pulsar4X.Extensions;
 
 namespace Pulsar4X.Tests
 {
@@ -33,28 +36,6 @@ namespace Pulsar4X.Tests
             atmoGases.Add(1.0, gas);
 
             StaticDataManager.ExportStaticData(atmoGases, "AtmoGasesExportTest.json");
-
-            List<CommanderNameThemeSD> nameThemes = new List<CommanderNameThemeSD>();
-            CommanderNameThemeSD nameTheme = new CommanderNameThemeSD();
-            nameTheme.NameList = new List<CommanderNameSD>();
-            nameTheme.ThemeName = "The Creators";
-
-            CommanderNameSD name = new CommanderNameSD();
-            name.First = "Greg";
-            name.Last = "Nott";
-            name.IsFemale = false;
-
-            nameTheme.NameList.Add(name);
-
-            name.First = "Rod";
-            name.Last = "Serling";
-            name.IsFemale = false;
-
-            nameTheme.NameList.Add(name);
-
-            nameThemes.Add(nameTheme);
-
-            StaticDataManager.ExportStaticData(nameThemes, "CommanderNameThemeExportTest.json");
 
             StaticDataManager.ExportStaticData(VersionInfo.PulsarVersionInfo, "VersionInfoExportTest.vinfo");
 
@@ -120,7 +101,7 @@ namespace Pulsar4X.Tests
 
             //installations.Add(install);
 
-            
+
 
             //ComponentAbilitySD launchAbility = new ComponentAbilitySD();
             //launchAbility.Ability = AbilityType.LaunchMissileSize;
@@ -193,34 +174,41 @@ namespace Pulsar4X.Tests
         {
             Dictionary<Guid, ProcessedMaterialSD> mats = new Dictionary<Guid, ProcessedMaterialSD>();
 
-            ProcessedMaterialSD soriumFuel = new ProcessedMaterialSD();
-            soriumFuel.Name = "Sorium Fuel";
-            soriumFuel.Description = "Fuel for SpaceShips";
-            soriumFuel.ID = new Guid("33E6AC88-0235-4917-A7FF-35C8886AAD3A");
-            soriumFuel.MineralsRequired = new Dictionary<Guid, long>();
+            ProcessedMaterialSD soriumFuel = new ProcessedMaterialSD()
+            {
+                Name = "Sorium Fuel",
+                Description = "Fuel for SpaceShips",
+                ID = new Guid("33E6AC88-0235-4917-A7FF-35C8886AAD3A"),
+                MineralsRequired = new Dictionary<Guid, long>(),
+
+                MassPerUnit = 1,
+                //soriumFuel.CargoType = CargoType.Fuel;
+                IndustryPointCosts = 10,
+                OutputAmount = 1
+            };
             soriumFuel.MineralsRequired.Add(new Guid("08f15d35-ea1d-442f-a2e3-bde04c5c22e9"), 1);
-            soriumFuel.MassPerUnit = 1;
-            //soriumFuel.CargoType = CargoType.Fuel;
-            soriumFuel.IndustryPointCosts = 10;
-            soriumFuel.OutputAmount = 1;
             mats.Add(soriumFuel.ID, soriumFuel);
 
-            ProcessedMaterialSD DepleatedDuranuim = new ProcessedMaterialSD();
-            DepleatedDuranuim.Name = "Depleated Duranuim";
-            DepleatedDuranuim.Description = "A mix of Duranium and refined fuel to teset refinarys";
-            DepleatedDuranuim.ID = new Guid("6DA93677-EE08-4853-A8A5-0F46D93FE0EB");
-            DepleatedDuranuim.MineralsRequired = new Dictionary<Guid, long>();
+            ProcessedMaterialSD DepleatedDuranuim = new ProcessedMaterialSD()
+            {
+                Name = "Depleated Duranuim",
+                Description = "A mix of Duranium and refined fuel to teset refinarys",
+                ID = new Guid("6DA93677-EE08-4853-A8A5-0F46D93FE0EB"),
+                MineralsRequired = new Dictionary<Guid, long>(),
+
+                MaterialsRequired = new Dictionary<Guid, long>(),
+
+                MassPerUnit = 1,
+                //DepleatedDuranuim.CargoType = CargoType.General;
+                IndustryPointCosts = 20,
+                OutputAmount = 6
+            };
             DepleatedDuranuim.MineralsRequired.Add(new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), 5);
-            DepleatedDuranuim.MaterialsRequired = new Dictionary<Guid, long>();
             DepleatedDuranuim.MaterialsRequired.Add(new Guid("33E6AC88-0235-4917-A7FF-35C8886AAD3A"), 1);
-            DepleatedDuranuim.MassPerUnit = 1;
-            //DepleatedDuranuim.CargoType = CargoType.General;
-            DepleatedDuranuim.IndustryPointCosts = 20;
-            DepleatedDuranuim.OutputAmount = 6;
             mats.Add(DepleatedDuranuim.ID, DepleatedDuranuim);
 
             StaticDataManager.ExportStaticData(mats, "ReinfedMaterialsDataExportTest.json");
-            
+
         }
 
         [Test]
@@ -312,7 +300,7 @@ namespace Pulsar4X.Tests
             techs.Add(EngineTech4.ID, EngineTech4);
 
             StaticDataManager.ExportStaticData(techs, "TechnologyDataExportTest.json");
-            
+
         }
 
         [Test]
@@ -362,10 +350,10 @@ namespace Pulsar4X.Tests
             int mineralsNum = staticDataStore.CargoGoods.GetMineralsList().Count;
             Guid someGuid = new Guid("08f15d35-ea1d-442f-a2e3-bde04c5c22e9");
             string someName = staticDataStore.CargoGoods.GetMineral(someGuid).Name;
-            
+
             StaticDataManager.LoadData("Other", game);
             staticDataStore = game.StaticData;
-            
+
             // now check that overwriting occured and that there were no duplicates:
             Assert.AreEqual(mineralsNum, staticDataStore.CargoGoods.GetMineralsList().Count);
             //check the name has been overwritten
@@ -395,7 +383,7 @@ namespace Pulsar4X.Tests
             testObj = staticDataStore.FindDataObjectUsingID(testID);
             Assert.IsNotNull(testObj);
             Assert.AreEqual(testID, ((MineralSD)testObj).ID);
-            
+
             testObj = staticDataStore.FindDataObjectUsingID(testID);
             Assert.IsNotNull(testObj);
 
@@ -407,7 +395,7 @@ namespace Pulsar4X.Tests
 
         //for want of a better place to put it.
         [Test]
-        public void TestJdicExtension() 
+        public void TestJdicExtension()
         {
             Dictionary<int, int> dict = new Dictionary<int, int>();
             dict.Add(1,1);
@@ -419,3 +407,5 @@ namespace Pulsar4X.Tests
         }
     }
 }
+
+*/

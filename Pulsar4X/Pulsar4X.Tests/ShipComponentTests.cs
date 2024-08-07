@@ -1,9 +1,11 @@
-﻿using NUnit.Framework;
-using Pulsar4X.ECSLib;
+﻿/* Very old test. Needs updated for both StaticData nad ComponentTemplates
+
+using NUnit.Framework;
+using Pulsar4X.Datablobs;
+using Pulsar4X.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Pulsar4X.ECSLib.Industry;
 
 namespace Pulsar4X.Tests
 {
@@ -12,15 +14,11 @@ namespace Pulsar4X.Tests
     internal class ComponentTests
     {
         private Game _game;
-        private EntityManager _entityManager;
         private Entity _faction;
-        private Entity _colonyEntity;
-        private MineralSD _duraniumSD;
-        private MineralSD _corundiumSD;
         private StarSystem _starSystem;
         //private Entity _shipClass;
-        private Entity _ship;
-        private Entity _engineComponent;
+        // private Entity _ship;
+        // private Entity _engineComponent;
         [SetUp]
         public void Init()
         {
@@ -115,14 +113,14 @@ namespace Pulsar4X.Tests
 
             ComponentDesigner cargoDesigner = new ComponentDesigner(cargo, _faction.GetDataBlob<FactionTechDB>());
             cargoDesigner.ComponentDesignAttributes["Size"].SetValue();
- 
+
             ComponentDesign cargoDesign = cargoDesigner.CreateDesign(_faction);
-            
+
             bool hasAttribute = cargoDesign.TryGetAttribute<VolumeStorageAtb>(out var attributeDB);
             Assert.IsTrue(hasAttribute);
-            
 
-            
+
+
             CargoTypeSD cargotype = _game.StaticData.CargoTypes[attributeDB.StoreTypeID];
 
             Assert.AreEqual(100, attributeDB.MaxVolume);
@@ -265,7 +263,7 @@ namespace Pulsar4X.Tests
             sensorSigDBArgs10.AttributeType = typeof(SensorSignatureAtbDB).ToString();
             sensorSigDBArgs10.AttributeFormula = "AtbConstrArgs(Ability(9),0)";
             component.ComponentAtbSDs.Add(sensorSigDBArgs10);
-            
+
             return component;
         }
 
@@ -285,10 +283,10 @@ namespace Pulsar4X.Tests
             component.CrewReqFormula = "50000";
 
             component.ResearchCostFormula = "0";
-            
+
             component.BuildPointCostFormula = "[Mass]";
 
-            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2d4b2866-aa4a-4b9a-b8aa-755fe509c0b3"), "60"}, 
+            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2d4b2866-aa4a-4b9a-b8aa-755fe509c0b3"), "60"},
             {new Guid("2ae2a928-3e14-45d5-befc-5bd6ed16ec0a"), "60"}};
 
             component.CreditCostFormula = "120";
@@ -320,7 +318,7 @@ namespace Pulsar4X.Tests
             mineAttribute.AttributeType = typeof(MineResourcesAtbDB).ToString();
             mineAttribute.AttributeFormula = "AtbConstrArgs([GuidDict])";
             component.ComponentAtbSDs.Add(mineAttribute);
-            
+
             return component;
 
         }
@@ -344,7 +342,7 @@ namespace Pulsar4X.Tests
 
             component.BuildPointCostFormula = "[Mass]";
 
-            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), "60"}, 
+            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), "60"},
             {new Guid("c3bcb597-a2d1-4b12-9349-26586c8a921c"), "60"}};
 
             component.CreditCostFormula = "120";
@@ -385,7 +383,7 @@ namespace Pulsar4X.Tests
 
             component.BuildPointCostFormula = "[Mass]";
 
-            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), "60"}, 
+            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), "60"},
             {new Guid("c3bcb597-a2d1-4b12-9349-26586c8a921c"), "60"}};
 
             component.CreditCostFormula = "120";
@@ -393,7 +391,7 @@ namespace Pulsar4X.Tests
             component.MountType = ComponentMountType.PlanetInstallation | ComponentMountType.ShipCargo;
 
             component.ComponentAtbSDs = new List<ComponentTemplateAttributeSD>();
-            
+
             ComponentTemplateAttributeSD refinePointsAttribute = new ComponentTemplateAttributeSD();
             refinePointsAttribute.Name = "RP Amount Per EconTick";
             refinePointsAttribute.DescriptionFormula = "";
@@ -436,7 +434,7 @@ namespace Pulsar4X.Tests
 
             component.BuildPointCostFormula = "[Mass]";
 
-            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), "60"}, 
+            component.ResourceCostFormula = new Dictionary<Guid, string> {{new Guid("2dfc78ea-f8a4-4257-bc04-47279bf104ef"), "60"},
             {new Guid("c3bcb597-a2d1-4b12-9349-26586c8a921c"), "60"}};
 
             component.CreditCostFormula = "120";
@@ -543,14 +541,14 @@ namespace Pulsar4X.Tests
             rate.GuiHint = GuiHint.GuiTextDisplay;
             rate.AttributeFormula = "50000";
             component.ComponentAtbSDs.Add(rate);
-            
+
             ComponentTemplateAttributeSD range = new ComponentTemplateAttributeSD();
             range.Name = "Transfer Dv Range";
             range.DescriptionFormula = "";
             range.GuiHint = GuiHint.GuiTextDisplay;
             range.AttributeFormula = "50000";
             component.ComponentAtbSDs.Add(range);
-            
+
             ComponentTemplateAttributeSD generalCargoCapacityAttribute = new ComponentTemplateAttributeSD();
             generalCargoCapacityAttribute.Name = "Construction Points";
             generalCargoCapacityAttribute.DescriptionFormula = "";
@@ -564,3 +562,4 @@ namespace Pulsar4X.Tests
 
     }
 }
+*/

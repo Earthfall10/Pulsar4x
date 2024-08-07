@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Pulsar4X.ECSLib;
+using Pulsar4X.Engine;
 
 namespace Pulsar4X.Tests
 {
     [TestFixture]
     class PathfindingTests
     {
-        private Game _game;
+        // private Game _game;
         private PathfindingManager _pathfindingManager;
-        private Entity _humanFaction;
-        private Player _testPlayer;
-        private AuthenticationToken _authToken;
+        // private Entity _humanFaction;
+        // private Player _testPlayer;
+        // private AuthenticationToken _authToken;
 
         [Test]
         public void GraphTest()
@@ -42,7 +41,7 @@ namespace Pulsar4X.Tests
 
             double totalCost;
             Stack<Node> pathStack = _pathfindingManager.GetPath(node1, node3, graph, out totalCost);
-            
+
             Assert.AreEqual(12d, totalCost); // Check shortest path.
             Assert.AreEqual(3, pathStack.Count); // Check for proper node count.
             Assert.AreEqual(node1, pathStack.Pop()); // First node is source node.
@@ -77,7 +76,7 @@ namespace Pulsar4X.Tests
             graph.Clear();
             Assert.AreEqual(0, graph.Count);
             Assert.Throws<ArgumentException>(() => graph.AddUndirectedEdge(node1, node2, 1));
-            Assert.Throws<ArgumentException>(() => graph.AddDirectedEdge(node1, node2, 1)); 
+            Assert.Throws<ArgumentException>(() => graph.AddDirectedEdge(node1, node2, 1));
 
             // Generate new nodes to clear the neighbors.
             node1 = new Node("Node1");
@@ -97,13 +96,14 @@ namespace Pulsar4X.Tests
             Assert.AreEqual(node2, pathStack.Pop());
             Assert.AreEqual(node3, pathStack.Pop());
         }
-        
+
+        /*
         [Test]
         [Ignore("Incomplete Test")]
         public void PathfindingTest()
         {
             CreateTestUniverse();
-            
+
             List<StarSystem> systems = _game.GetSystems(_authToken);
 
 
@@ -134,5 +134,6 @@ namespace Pulsar4X.Tests
 
             factionInfoDB.KnownSystems.Add(starSystem.Guid);
         }
+        */
     }
 }

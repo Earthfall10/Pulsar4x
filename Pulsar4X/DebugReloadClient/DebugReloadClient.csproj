@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -6,14 +6,14 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="Mono.Cecil" Version="0.10.4" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="Mono.Cecil" Version="0.11.5" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\MyvarReload\MyvarReload\MyvarReload.csproj" />
       <ProjectReference Include="..\Pulsar4X.ECSLib\Pulsar4X.ECSLib.csproj" />
-      <ProjectReference Include="..\Pulsar4X.ImGuiNetUI\Pulsar4X.ImGuiNetUI.csproj" />
+      <ProjectReference Include="..\Pulsar4X.Client\Pulsar4X.Client.csproj" />
     </ItemGroup>
 
 </Project>

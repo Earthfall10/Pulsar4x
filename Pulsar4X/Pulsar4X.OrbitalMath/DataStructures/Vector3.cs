@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Pulsar4X.Orbital
 {
@@ -10,6 +11,7 @@ namespace Pulsar4X.Orbital
     /// <typeparam name="T">An int, float, </typeparam>
     public struct Vector3 : IEquatable<Vector3>, IFormattable, IComparable<Vector3>
     {
+
         public double X;
         public double Y;
         public double Z;
@@ -53,7 +55,7 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Gets a vector whose 4 elements are equal to one. 
+        /// Gets a vector whose 3 elements are equal to one. 
         /// </summary>
         public static Vector3 One
         {
@@ -61,7 +63,7 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Gets a vector whose 4 elements are equal to zero. 
+        /// Gets a vector whose 3 elements are equal to zero. 
         /// </summary>
         public static Vector3 Zero
         {
@@ -69,7 +71,7 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Gets the vector (1,0,0,0).
+        /// Gets the vector (1,0,0).
         /// </summary>
         public static Vector3 UnitX
         {
@@ -77,7 +79,7 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Gets the vector (0,1,0,0).
+        /// Gets the vector (0,1,0).
         /// </summary>
         public static Vector3 UnitY
         {
@@ -85,16 +87,16 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Gets the vector (0,0,1,0).
+        /// Gets the vector (0,0,1).
         /// </summary>
         public static Vector3 UnitZ
         {
             get { return new Vector3(0, 0, 1); }
         }
 
-        public static Vector3 Vector3FromDecimals(decimal X, decimal Y, decimal Z)
+        public static Vector3 Random(Random r)
         {
-            return new Vector3((double)X, (double)Y, (double)Z);
+            return new Vector3(r.NextDouble(), r.NextDouble(), r.NextDouble());
         }
 
         #endregion
@@ -110,7 +112,7 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Divides the first vector by the second. 
+        /// Divides the first vector element-wise by the second. 
         /// </summary>
         public static Vector3 Divide(Vector3 left, Vector3 right)
         {
@@ -144,16 +146,6 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Returns the magnitude of the vector.
-        /// </summary>
-        /// 
-        public static double Magnitude(Vector3 vector)
-        {
-            return Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z));
-        }
-
-
-        /// <summary>
         /// attempts to get a more mathmaticaly precise result by casting to a decimal and back again.
         /// due to not having a built in Sqrt function for decimal, we cast back before that is done.
         /// </summary>
@@ -170,9 +162,9 @@ namespace Pulsar4X.Orbital
 
         public static Vector3 Normalise(Vector3 vector)
         {
-            double magnatude = Magnitude(vector);
-            if (magnatude != 0)
-                return vector / magnatude;
+            double magnitude = vector.Length();
+            if (magnitude != 0)
+                return vector / magnitude;
             else
                 return vector;
         }
@@ -180,7 +172,6 @@ namespace Pulsar4X.Orbital
         /// <summary>
         /// Returns the dot product of two vectors
         /// </summary>
-
         public static double Dot(Vector3 left, Vector3 right)
         {
             return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
@@ -204,7 +195,7 @@ namespace Pulsar4X.Orbital
         }
 
         /// <summary>
-        /// Cross product of left and right. Note: this ignores the fourth (W) property and treats them as 3d vectors.
+        /// Cross product of left and right.
         /// </summary>
         public static Vector3 Cross(Vector3 left, Vector3 right)
         {
@@ -240,10 +231,9 @@ namespace Pulsar4X.Orbital
         /// <summary>
         /// Returns the angle between two vectors
         /// </summary>
-
         public static double AngleBetween(Vector3 left, Vector3 right)
         {
-            return Math.Acos(Dot(left, right) / (Magnitude(left) * Magnitude(right)));
+            return Math.Acos(Dot(left, right) / (left.Length() * right.Length()));
         }
 
         /// <summary>
@@ -425,7 +415,7 @@ namespace Pulsar4X.Orbital
         /// </summary>
         public static bool operator !=(Vector3 left, Vector3 right)
         {
-            return left.X != right.X && left.Y != right.Y && left.Z != right.Z;
+            return left.X != right.X || left.Y != right.Y || left.Z != right.Z;
         }
 
         /// <summary>
